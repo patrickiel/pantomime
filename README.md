@@ -6,6 +6,13 @@
 
 <p align="center"><em>Natural-language end-to-end testing for anything on screen.</em></p>
 
+<p align="center">
+  <img src="https://img.shields.io/badge/python-3.12-blue.svg" alt="Python 3.12" />
+  <img src="https://img.shields.io/badge/platform-Windows-0078D6.svg" alt="Platform: Windows" />
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License: MIT" /></a>
+  <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs welcome" /></a>
+</p>
+
 Pantomime is an end-to-end GUI testing framework where test cases are written in
 plain **natural language**. You describe what a user would do ("Type the
 username, click Sign in, confirm the welcome screen"), and Pantomime carries it

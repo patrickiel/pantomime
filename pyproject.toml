@@ -3,6 +3,8 @@ name = "pantomime"
 version = "0.1.0"
 description = "Pantomime — an end-to-end GUI testing framework where test cases are written in natural language."
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 authors = [
     { name = "Patrick Demichiel", email = "patrick.demichiel@outlook.com" }
 ]

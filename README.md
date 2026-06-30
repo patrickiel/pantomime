@@ -12,9 +12,7 @@ username, click Sign in, confirm the welcome screen"), and Pantomime carries it
 out on the real screen.
 
 <p align="center">
-  <video src="https://github.com/patrickiel/pantomime/raw/main/design/screencast.mp4" controls muted loop playsinline width="900">
-    <a href="https://github.com/patrickiel/pantomime/raw/main/design/screencast.mp4">Watch the screencast</a>
-  </video>
+  <video src="https://github.com/user-attachments/assets/f8c61d00-9d13-4710-8186-8ce8d2610ac5" controls muted loop playsinline width="900"></video>
 </p>
 
 Under the hood, local perception "sees" the screen (Windows UI Automation, plus

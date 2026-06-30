@@ -8,17 +8,29 @@ test:
   tags: [smoke, auth]
   priority: high
 
-  window: Login
+  window: Login # target the window whose title contains "Login" (CLI --window overrides)
 
   preconditions:
     - "The 'Login' window is open and shows the 'Username' and 'Password' fields."
 
+  # `action` is plain English: the agent senses the screen, plans, and acts.
+  # `${VAR:...}` and `${SECRET:...}` are resolved at runtime (secrets never logged).
   steps:
-    - action: "Type '${VAR:MY_USER}' into the 'Username' field,
-        type '${SECRET:MY_PASSWORD}' into the 'Password' field,
-        then click the 'Sign in' button."
+    - action: "Type '${VAR:MY_USER}' into the 'Username' field, type '${SECRET:MY_PASSWORD}' into the 'Password' field, then click the 'Sign in' button."
       expect: "A welcome message is shown and the login form is gone."
 
+    # Faster, deterministic alternative (no planner calls): the form opens with
+    # focus on the Username field and Tab order is Username -> Password -> Sign in,
+    # so the whole login can be driven by keystrokes. Enter does not submit; the
+    # Sign in button is activated with Space.
+    # - type: "${VAR:MY_USER}"
+    # - key: Tab
+    # - type: "${SECRET:MY_PASSWORD}"
+    # - key: Tab
+    # - key: Space
+    #   expect: "contains:Welcome"
+
+  # `absent:` and `contains:` are deterministic, LLM-free checks against on-screen text.
   assertions:
     - "absent:Invalid credentials"
     - "contains:You are logged in"

@@ -46,17 +46,24 @@ from an empty project to a passing run you can step through in a browser.
 
 - **Windows.** Pantomime drives the desktop through Windows UI Automation, win32
   input, and Windows OCR. It is Windows-only.
-- **Python 3.12**, managed by [uv](https://docs.astral.sh/uv/).
+- **Python 3.12**, managed by [uv](https://docs.astral.sh/uv/). Install uv with
+  `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"`
+  (uv fetches Python 3.12 for you).
 - **An API key for a reasoning model**, used to plan steps and judge
   natural-language checks. One exception: `--dry-run` plans without a key.
-- For your first run, set the display to **100% scaling** to avoid DPI edge
-  cases.
 
 ### 2. Install the `panto` command
 
 Pantomime is a framework you install into your own project; your tests are YAML
-files that live in your repo next to your app. Install the `panto` command from a
-local checkout (it is not published to PyPI yet):
+files that live in your repo next to your app. It is not published to PyPI yet,
+so first clone this repository:
+
+```powershell
+git clone https://github.com/patrickiel/pantomime.git
+```
+
+Then install the `panto` command from that local checkout (point the path at
+wherever you cloned it):
 
 ```powershell
 uv tool install --editable "C:\path\to\pantomime"

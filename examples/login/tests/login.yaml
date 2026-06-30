@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/patrickiel/pantomime/main/schemas/v1/testcase.schema.json
+test:
+  id: login-happy-path
+  title: "Login with valid credentials"
+  description: >
+    A registered user signs in to the demo login app and lands on the
+    welcome screen.
+  tags: [smoke, auth]
+  priority: high
+
+  window: Login
+
+  preconditions:
+    - "The 'Login' window is open and shows the 'Username' and 'Password' fields."
+
+  steps:
+    - action: "Type '${VAR:MY_USER}' into the 'Username' field,
+        type '${SECRET:MY_PASSWORD}' into the 'Password' field,
+        then click the 'Sign in' button."
+      expect: "A welcome message is shown and the login form is gone."
+
+  assertions:
+    - "absent:Invalid credentials"
+    - "contains:You are logged in"
+
+  teardown:
+    - "Click the 'Sign out' button."

@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/patrickiel/pantomime/main/schemas/v1/pantomime.schema.json
+# Pantomime project config.
+
+# Project name, shown in the web debugger.
+name: login
+
+# --- Reasoning (planner + judge) ---
+# provider: deepseek, anthropic (any Anthropic-compatible endpoint), or openai
+# (pip install pantomime[openai]). api_key is a secret: set it only in the
+# gitignored pantomime.yaml. base_url (below) overrides the provider's endpoint.
+api_key: sk-...
+provider: deepseek
+planner_model: deepseek-v4-pro
+judge_model: deepseek-v4-flash
+effort: medium # low | medium | high | xhigh | max
+# base_url: https://your-gateway.example/anthropic
+
+# --- Grounding (local OpenCV + OCR; keyless) ---
+# Adds elements on UIA-opaque screens. false = UIA-only.
+grounding_enabled: true
+
+# --- Pricing (USD per 1M tokens; for the per-run cost estimate) ---
+# Price every model the planner and judge use, keyed by model id.
+pricing:
+  deepseek-v4-pro:
+    input_per_mtok: 0.435
+    output_per_mtok: 0.87
+  deepseek-v4-flash:
+    input_per_mtok: 0.07
+    output_per_mtok: 0.14
+
+# --- Test inputs ---
+# Public values referenced by tests as ${VAR:NAME} (shown in logs).
+vars:
+  MY_USER: demo_user
+
+# Secrets referenced by tests as ${SECRET:NAME} (redacted everywhere).
+secrets:
+  MY_PASSWORD: hunter2

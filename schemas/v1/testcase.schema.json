@@ -1,0 +1,352 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pantomime.dev/schema/v1/testcase.schema.json",
+  "title": "Pantomime test case",
+  "description": "A natural-language GUI test (see pantomime.schema.models).",
+  "$defs": {
+    "Assertion": {
+      "title": "Assertion",
+      "description": "A final, hard check evaluated after all steps run.\n\nAccepts either a bare string (the natural-language expectation) or a\nmapping with ``expect`` (+ optional ``region``).",
+      "anyOf": [
+        {
+          "type": "string",
+          "description": "Natural-language check, or 'absent:<text>'."
+        },
+        {
+          "additionalProperties": false,
+          "description": "A final, hard check evaluated after all steps run.\n\nAccepts either a bare string (the natural-language expectation) or a\nmapping with ``expect`` (+ optional ``region``).",
+          "properties": {
+            "expect": {
+              "title": "Expect",
+              "type": "string"
+            },
+            "region": {
+              "anyOf": [
+                {
+                  "maxItems": 4,
+                  "minItems": 4,
+                  "prefixItems": [
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "integer"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ],
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Region"
+            }
+          },
+          "required": [
+            "expect"
+          ],
+          "title": "Assertion",
+          "type": "object"
+        }
+      ]
+    },
+    "Step": {
+      "additionalProperties": false,
+      "description": "One structured step.\n\nEither a free-text ``action`` (driven by the agentic Sense/Plan/Act loop) or\nexactly one *deterministic* field (``key``/``type``/``wait``/``scroll``),\nwhich runs mechanically with no model call. ``expect`` (+ optional ``region``)\napplies to both forms.",
+      "properties": {
+        "action": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Action"
+        },
+        "key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Key"
+        },
+        "type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Type"
+        },
+        "wait": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Wait"
+        },
+        "scroll": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scroll"
+        },
+        "amount": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Amount"
+        },
+        "expect": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expect"
+        },
+        "region": {
+          "anyOf": [
+            {
+              "maxItems": 4,
+              "minItems": 4,
+              "prefixItems": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Region"
+        },
+        "timeout_s": {
+          "default": 20,
+          "title": "Timeout S",
+          "type": "integer"
+        },
+        "retries": {
+          "default": 2,
+          "title": "Retries",
+          "type": "integer"
+        }
+      },
+      "title": "Step",
+      "type": "object"
+    },
+    "TestCase": {
+      "additionalProperties": false,
+      "description": "A parsed, validated test case (the internal representation).",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "description": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Description"
+        },
+        "tags": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Tags",
+          "type": "array"
+        },
+        "priority": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Priority"
+        },
+        "region": {
+          "anyOf": [
+            {
+              "maxItems": 4,
+              "minItems": 4,
+              "prefixItems": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "integer"
+                }
+              ],
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Region"
+        },
+        "window": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Window"
+        },
+        "data": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {},
+          "title": "Data",
+          "type": "object"
+        },
+        "preconditions": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Preconditions",
+          "type": "array"
+        },
+        "steps": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Step"
+          },
+          "title": "Steps",
+          "type": "array"
+        },
+        "flow": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Flow"
+        },
+        "assertions": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/Assertion"
+          },
+          "title": "Assertions",
+          "type": "array"
+        },
+        "teardown": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Teardown",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title"
+      ],
+      "title": "TestCase",
+      "type": "object"
+    }
+  },
+  "anyOf": [
+    {
+      "$ref": "#/$defs/TestCase"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "test": {
+          "$ref": "#/$defs/TestCase"
+        }
+      },
+      "required": [
+        "test"
+      ],
+      "additionalProperties": false
+    }
+  ]
+}

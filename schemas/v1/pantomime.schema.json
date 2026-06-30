@@ -1,0 +1,138 @@
+{
+  "$defs": {
+    "ModelPrice": {
+      "description": "Per-1M-token USD rates for one model (used for the per-run cost estimate).",
+      "properties": {
+        "input_per_mtok": {
+          "title": "Input Per Mtok",
+          "type": "number"
+        },
+        "output_per_mtok": {
+          "title": "Output Per Mtok",
+          "type": "number"
+        }
+      },
+      "required": [
+        "input_per_mtok",
+        "output_per_mtok"
+      ],
+      "title": "ModelPrice",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "name": {
+      "default": "",
+      "title": "Name",
+      "type": "string"
+    },
+    "provider": {
+      "default": "",
+      "title": "Provider",
+      "type": "string"
+    },
+    "planner_model": {
+      "default": "",
+      "title": "Planner Model",
+      "type": "string"
+    },
+    "judge_model": {
+      "default": "",
+      "title": "Judge Model",
+      "type": "string"
+    },
+    "effort": {
+      "default": "",
+      "title": "Effort",
+      "type": "string"
+    },
+    "planner_max_tokens": {
+      "default": 4000,
+      "title": "Planner Max Tokens",
+      "type": "integer"
+    },
+    "base_url": {
+      "default": "",
+      "title": "Base Url",
+      "type": "string"
+    },
+    "api_key": {
+      "default": "",
+      "title": "Api Key",
+      "type": "string"
+    },
+    "pricing": {
+      "additionalProperties": {
+        "$ref": "#/$defs/ModelPrice"
+      },
+      "title": "Pricing",
+      "type": "object"
+    },
+    "max_actions_per_step": {
+      "default": 12,
+      "title": "Max Actions Per Step",
+      "type": "integer"
+    },
+    "settle_threshold": {
+      "default": 0.01,
+      "title": "Settle Threshold",
+      "type": "number"
+    },
+    "settle_timeout_s": {
+      "default": 2.0,
+      "title": "Settle Timeout S",
+      "type": "number"
+    },
+    "settle_interval_s": {
+      "default": 0.15,
+      "title": "Settle Interval S",
+      "type": "number"
+    },
+    "grounding_enabled": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Grounding Enabled"
+    },
+    "runs_dir": {
+      "default": "runs",
+      "title": "Runs Dir",
+      "type": "string"
+    },
+    "debug_record": {
+      "default": true,
+      "title": "Debug Record",
+      "type": "boolean"
+    },
+    "db_path": {
+      "default": "",
+      "title": "Db Path",
+      "type": "string"
+    },
+    "vars": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Vars",
+      "type": "object"
+    },
+    "secrets": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Secrets",
+      "type": "object"
+    }
+  },
+  "title": "Settings",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pantomime.dev/schema/v1/pantomime.schema.json",
+  "description": "Runner-host config for a Pantomime project (see pantomime.runtime.config)."
+}

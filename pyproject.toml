@@ -1,0 +1,52 @@
+[project]
+name = "pantomime"
+version = "0.1.0"
+description = "Pantomime — an end-to-end GUI testing framework where test cases are written in natural language."
+readme = "README.md"
+authors = [
+    { name = "Patrick Demichiel", email = "patrick.demichiel@outlook.com" }
+]
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "anthropic>=0.111.0",
+    "comtypes>=1.4.16",
+    "keyring>=25.7.0",
+    "mss>=10.2.0",
+    "opencv-python-headless>=4.10",
+    "pillow>=12.2.0",
+    "winsdk>=1.0.0b10",
+    "pyautogui>=0.9.54",
+    "pydantic>=2.13.4",
+    "python-dotenv>=1.2.2",
+    "pywin32>=312",
+    "pywinauto>=0.6.9",
+    "pyyaml>=6.0.3",
+]
+
+[project.optional-dependencies]
+# Only needed when `provider: openai` (the default DeepSeek/Anthropic path uses the
+# always-installed `anthropic` SDK). Install with: pip install pantomime[openai]
+openai = ["openai>=1.40.0"]
+
+[project.scripts]
+panto = "pantomime.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+# Ship the whole package, including the non-Python scaffold templates that
+# `panto init` reads from pantomime/templates/.
+packages = ["src/pantomime"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = [
+    "ignore::SyntaxWarning",
+]

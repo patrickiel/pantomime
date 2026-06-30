@@ -1,0 +1,42 @@
+@import 'tailwindcss';
+
+/* Tailwind v4's content scanner treats the square brackets in SvelteKit dynamic
+   route dirs (routes/runs/[id]) as glob syntax and skips them, so classes used only
+   inside that route — the run-detail two-column grid and the live "Autofocus" toggle —
+   never get generated and the detail panel collapses under the timeline. Pointing
+   @source at the bracket dir's immediate parent forces a recursive walk that descends
+   into [id]. NB: pointing at the broader "./routes" does NOT work — it re-triggers the
+   bracket skip — so register each [param] route's parent dir here. */
+@source "./routes/runs";
+
+/* Semantic theme (Tailwind v4). Every colour in the UI comes from one of these
+   tokens — there are no hard-coded palette classes in the markup. Accents are a
+   single base colour each; lighter fills/borders come from opacity modifiers
+   (e.g. bg-primary/10, border-info/40), so the palette stays small. */
+@theme {
+	--font-mono:
+		ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, monospace;
+
+	/* Neutrals — cool slate scale, dark to light. */
+	--color-base: oklch(0.15 0.012 264); /* page background */
+	--color-surface: oklch(0.24 0.014 264); /* panels, cards, table heads */
+	--color-elevated: oklch(0.31 0.016 264); /* hover, raised chips */
+	--color-border: oklch(0.33 0.016 264); /* default hairline */
+	--color-border-strong: oklch(0.43 0.018 264); /* button outlines, dividers */
+	--color-faint: oklch(0.46 0.018 264); /* faintest text, disabled */
+	--color-subtle: oklch(0.58 0.017 264); /* captions, labels, meta */
+	--color-muted: oklch(0.72 0.015 264); /* secondary body text */
+	--color-fg: oklch(0.96 0.005 264); /* primary text */
+
+	/* Accents — one base each, tinted via opacity modifiers. */
+	--color-primary: oklch(0.78 0.16 162); /* go / success / passed */
+	--color-danger: oklch(0.72 0.18 18); /* error / fail / stop */
+	--color-info: oklch(0.76 0.13 235); /* running / live / sense */
+	--color-warning: oklch(0.83 0.15 85); /* canceled / plan / highlight */
+	--color-goal: oklch(0.76 0.15 295); /* goal phase */
+	--color-verify: oklch(0.76 0.17 340); /* verify phase */
+}
+
+html {
+	color-scheme: dark;
+}
